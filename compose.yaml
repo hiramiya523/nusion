@@ -1,0 +1,34 @@
+services:
+  app:
+    hostname: nusion-app
+    container_name: nusion-app
+    build: ./docker/rust
+    tty: true
+    user: 1000:1000
+    env_file:
+      - .env
+    volumes:
+      - ./app/:/home/user/app
+    ports:
+      - 8083:8083
+    networks:
+      - mov-app-net
+  #   extra_hosts:
+  #   - "somehost:162.242.195.82"
+  #   - "otherhost:50.31.209.229"
+  # deploy:
+  #   resources:
+  #     # 確保
+  #     reservations:
+  #       cpus: '0.25' # コア数
+  #       memory: 20M
+        
+  #     # 上限
+  #     limits:
+  #       cpus: '0.50'
+  #       memory: 50M
+  #       # pids: 20 
+
+networks:
+  mov-app-net:
+    driver: bridge
